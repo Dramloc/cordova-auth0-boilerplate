@@ -1,4 +1,12 @@
-import './style';
-import App from './components/app';
+import App from './app';
+import isCordova from './is-cordova';
 
-export default App;
+function main() {
+  new App().run('app');
+}
+
+if (isCordova()) {
+  document.addEventListener('deviceready', main);
+} else {
+  main();
+}
