@@ -1,6 +1,6 @@
 {
 	"private": true,
-	"name": "cordova-test",
+	"name": "cordova-auth0-boilerplate",
 	"version": "0.0.0",
 	"license": "MIT",
 	"scripts": {
