@@ -1,12 +1,15 @@
-import App from './app';
-import isCordova from './is-cordova';
+import { h, render } from 'preact';
 
-function main() {
-  new App().run('app');
+import App from './components/app';
+import isCordova from './lib/util/is-cordova';
+
+let root;
+function init() {
+  root = render(<App />, document.body, root);
 }
 
 if (isCordova()) {
-  document.addEventListener('deviceready', main);
+  document.addEventListener('deviceready', init);
 } else {
-  main();
+  init();
 }
