@@ -1,7 +1,14 @@
 {
-  "private": true,
   "name": "cordova-auth0-boilerplate",
   "version": "0.0.0",
+  "description": "Cordova + Auth0 + Preact boilerplate",
+  "keywords": [
+    "preact",
+    "cordova",
+    "auth0",
+    "boilerplate"
+  ],
+  "author": "Antoine Colmard <a.colmard@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server",

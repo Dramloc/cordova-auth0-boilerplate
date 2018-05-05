@@ -1,5 +1,7 @@
 # cordova-auth0-boilerplate
 
+Cordova + Auth0 + Preact boilerplate
+
 ## CLI Commands
 
 ```bash
@@ -12,3 +14,7 @@ yarn start
 # build for production with minification
 yarn build
 ```
+
+## License
+
+[MIT](https://oss.ninja/mit/dramloc)
