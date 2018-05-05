@@ -21,7 +21,7 @@ export default class Loading extends Component {
               <p>
                 Please click the button to login using the hosted login page. You can edit the page
                 at
-                <a href="https://manage.auth0.com/#/login_page">Dashboard &gt; Hosted Page</a>
+                <a href="https://manage.auth0.com/#/login_page"> Dashboard &gt; Hosted Page</a>
               </p>
             </div>
           </div>
