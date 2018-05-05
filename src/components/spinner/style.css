@@ -1,0 +1,35 @@
+.spinner {
+  font-size: 36px;
+  height: 1em;
+  width: 1em;
+  animation: fadeIn 375ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.spinner__circle {
+  border-top: 2px solid rgba(0, 0, 0, 0.08);
+  border-right: 2px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+  border-left: 2px solid rgba(0, 0, 0, 0.4);
+  animation: spinner 750ms infinite linear;
+  border-radius: 50%;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
