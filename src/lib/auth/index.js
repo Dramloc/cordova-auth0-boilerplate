@@ -1,7 +1,7 @@
+import { promisify } from 'es6-promisify';
 import { route } from 'preact-router';
 import Auth0 from 'auth0-js';
 import Auth0Cordova from '@auth0/cordova';
-import { promisify } from 'es6-promisify';
 
 import isCordova from '../util/is-cordova';
 
@@ -25,11 +25,6 @@ function onAuthenticated(authResult) {
   route('/home');
 }
 
-function onAuthenticationError(error) {
-  console.error(error);
-  throw error;
-}
-
 export function handleAuthentication() {
   const client = new Auth0.WebAuth({
     domain: process.env.AUTH0_DOMAIN,
@@ -39,7 +34,7 @@ export function handleAuthentication() {
   const parseHash = promisify(client.parseHash.bind(client));
   return parseHash()
     .then(onAuthenticated)
-    .catch(onAuthenticationError);
+    .catch(() => route('/login'));
 }
 
 export function login() {
@@ -56,9 +51,7 @@ export function login() {
       packageIdentifier: process.env.PACKAGE_ID,
     });
     const authorize = promisify(client.authorize.bind(client));
-    authorize(options)
-      .then(onAuthenticated)
-      .catch(onAuthenticationError);
+    authorize(options).then(onAuthenticated);
   } else {
     const client = new Auth0.WebAuth({
       domain: process.env.AUTH0_DOMAIN,
@@ -97,7 +90,7 @@ export function refresh() {
   const refreshToken = localStorage.getItem(REFRESH_TOKEN);
 
   if (!refreshToken) {
-    throw new Error('No refresh token stored, could not refresh authentication');
+    return Promise.reject(new Error('No refresh token stored, could not refresh authentication'));
   }
 
   const client = new Auth0.Authentication({
@@ -109,7 +102,5 @@ export function refresh() {
   return oauthToken({
     grantType: 'refresh_token',
     refreshToken,
-  })
-    .then(onAuthenticated)
-    .catch(onAuthenticationError);
+  }).then(onAuthenticated);
 }

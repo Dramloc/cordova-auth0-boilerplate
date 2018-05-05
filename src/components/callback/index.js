@@ -1,5 +1,4 @@
 import { Component, h } from 'preact';
-import { route } from 'preact-router';
 
 import { handleAuthentication } from '../../lib/auth';
 import Layout from '../layout';
@@ -8,9 +7,7 @@ import Spinner from '../spinner';
 
 export default class Callback extends Component {
   componentDidMount() {
-    handleAuthentication()
-      .then(() => route('/home'))
-      .catch(() => route('/login'));
+    handleAuthentication();
   }
 
   render() {
