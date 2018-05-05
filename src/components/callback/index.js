@@ -2,6 +2,9 @@ import { Component, h } from 'preact';
 import { route } from 'preact-router';
 
 import { handleAuthentication } from '../../lib/auth';
+import Layout from '../layout';
+import Page from '../page';
+import Spinner from '../spinner';
 
 export default class Callback extends Component {
   componentDidMount() {
@@ -12,14 +15,12 @@ export default class Callback extends Component {
 
   render() {
     return (
-      <div className="page">
-        <div className="flex col abs-centered full-page">
-          <div className="spinner spinner-lg is-auth0">
-            <div className="circle" />
-          </div>
-          <h3>Auth0</h3>
-        </div>
-      </div>
+      <Page>
+        <Layout direction="column" justify="center" align="center" grow={1}>
+          <Spinner />
+          <p>Login in...</p>
+        </Layout>
+      </Page>
     );
   }
 }

@@ -4,11 +4,11 @@ import { Router } from 'preact-router';
 
 import Callback from '../callback';
 import Home from '../home';
+import isCordova from '../../lib/util/is-cordova';
 import Loading from '../loading';
 import Login from '../login';
 
-import './style.css';
-import isCordova from '../../lib/util/is-cordova';
+import style from './style.css';
 
 export default class App extends Component {
   constructor() {
@@ -22,7 +22,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <div id="app">
+      <div className={style.app}>
         <Router history={this.history}>
           <Loading path="/" />
           <Callback path="/callback" />
