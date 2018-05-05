@@ -3,17 +3,27 @@ import cx from 'classnames';
 
 import style from './style.css';
 
-export default function Button({ className, children, ...props }) {
+export default function Button({
+  className, children, primary, ...props
+}) {
+  const classes = cx(style.button, className, {
+    [style['button--primary']]: primary,
+  });
+  const inner = [
+    <div className={style.button__overlay} />,
+    <div className={style.button__bevel} />,
+    { children },
+  ];
   if (props.href) {
     return (
-      <a className={cx(style.button, className)} {...props}>
-        <div className={style.button__overlay}>{children}</div>
+      <a className={classes} {...props}>
+        {inner}
       </a>
     );
   }
   return (
-    <button className={cx(style.button, className)} {...props}>
-      <div className={style.button__overlay}>{children}</div>
+    <button className={classes} {...props}>
+      {inner}
     </button>
   );
 }

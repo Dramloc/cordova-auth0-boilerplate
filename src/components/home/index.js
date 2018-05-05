@@ -22,7 +22,7 @@ export default class Loading extends Component {
         </Layout>
         <Layout direction="column">
           <Button onClick={refresh}>Refresh authentication</Button>
-          <Button onClick={logout}>Logout</Button>
+          <Button onClick={logout} primary>Logout</Button>
         </Layout>
       </Page>
     );

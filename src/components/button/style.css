@@ -1,15 +1,15 @@
 .button {
   position: relative;
   display: inline-block;
-  padding: 0;
-  margin: 4px 8px;
+  padding: 0 24px;
+  margin: 5px 0;
   font-family: "Roboto", "Helvetica Neue", arial, sans-serif;
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 500;
   line-height: 4em;
   letter-spacing: 0.07em;
-  color: #fff;
-  background-color: #eb5424;
+  color: #212121;
+  background-color: #e0e0e0;
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
@@ -17,19 +17,61 @@
   user-select: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   border: 0;
-  border-radius: 3px;
+  border-radius: 5px;
+  text-align: left;
   overflow: hidden;
+  transform-origin: bottom center;
+  will-change: transform;
+  transition: transform 50ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button:active {
+  transform: scaleY(0.93);
+}
+
+.button:first-child {
+  margin-top: 0;
+}
+
+.button:last-child {
+  margin-bottom: 0;
+}
+
+.button--primary {
+  color: #fff;
+  background-color: #eb5424;
 }
 
 .button__overlay {
-  padding: 0 24px;
-  background-color: rgba(0, 0, 0, 0);
-  will-change: background-color;
-  transition: background-color 225ms cubic-bezier(0.4, 0, 0.2, 1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  will-change: opacity;
+  transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .button:hover .button__overlay,
 .button:focus .button__overlay,
 .button:active .button__overlay {
-  background-color: rgba(0, 0, 0, 0.3);
+  opacity: 1;
+}
+
+.button__bevel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  transform-origin: bottom center;
+  background-color: rgba(0, 0, 0, 0.15);
+  will-change: transform;
+  transition: transform 50ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button:active .button__bevel {
+  transform: scaleY(0.1);
 }

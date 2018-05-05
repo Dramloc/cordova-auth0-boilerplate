@@ -25,7 +25,7 @@ export default class Loading extends Component {
           </p>
         </Layout>
         <Layout direction="column">
-          <Button onClick={login}>Login using Auth0</Button>
+          <Button onClick={login} primary>Login using Auth0</Button>
         </Layout>
       </Page>
     );
