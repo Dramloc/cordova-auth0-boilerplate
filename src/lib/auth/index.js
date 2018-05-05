@@ -46,7 +46,7 @@ export function login() {
   const options = {
     responseType: 'token id_token',
     scope: 'openid offline_access',
-    audience: 'https://cordova-test.com',
+    audience: process.env.AUTH0_AUDIENCE,
   };
   if (isCordova()) {
     window.handleOpenURL = url => Auth0Cordova.onRedirectUri(url);
