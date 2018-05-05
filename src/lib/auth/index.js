@@ -40,7 +40,7 @@ export function handleAuthentication() {
 export function login() {
   const options = {
     responseType: 'token id_token',
-    scope: 'openid offline_access',
+    scope: 'openid profile offline_access',
     audience: process.env.AUTH0_AUDIENCE,
   };
   if (isCordova()) {
@@ -84,6 +84,10 @@ export function isAuthenticated() {
     return false;
   }
   return Date.now() < JSON.parse(expiresAt);
+}
+
+export function getAuthorizationHeader() {
+  return `Bearer ${localStorage.getItem('access_token')}`;
 }
 
 export function refresh() {

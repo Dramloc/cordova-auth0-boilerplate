@@ -31,5 +31,8 @@
         <variable name="ANDROID_PATHPREFIX" value="/cordova/com.dramloc.cordova.test/callback" />
     </plugin>
     <preference name="AndroidLaunchMode" value="singleTask" />
+    <preference name="StatusBarBackgroundColor" value="#c8471f" />
+    <preference name="StatusBarStyle" value="lightcontent" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <engine name="android" spec="^7.0.0" />
 </widget>
