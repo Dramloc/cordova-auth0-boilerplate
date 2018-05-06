@@ -1,9 +1,5 @@
 import { promisify } from 'es6-promisify';
 import { route } from 'preact-router';
-import Auth0 from 'auth0-js';
-import Auth0Cordova from '@auth0/cordova';
-
-import isCordova from '../util/is-cordova';
 
 const ACCESS_TOKEN = 'access_token';
 const ID_TOKEN = 'id_token';
@@ -26,7 +22,8 @@ function onAuthenticated(authResult) {
 }
 
 export function handleAuthentication() {
-  const client = new Auth0.WebAuth({
+  const WebAuth = require('auth0-js/src/web-auth'); // eslint-disable-line global-require
+  const client = new WebAuth({
     domain: process.env.AUTH0_DOMAIN,
     clientID: process.env.AUTH0_CLIENT_ID,
     redirectUri: process.env.CALLBACK_URL,
@@ -43,7 +40,8 @@ export function login() {
     scope: 'openid profile offline_access',
     audience: process.env.AUTH0_AUDIENCE,
   };
-  if (isCordova()) {
+  if (process.env.IS_CORDOVA) {
+    const Auth0Cordova = require('@auth0/cordova'); // eslint-disable-line global-require
     window.handleOpenURL = url => Auth0Cordova.onRedirectUri(url);
     const client = new Auth0Cordova({
       domain: process.env.AUTH0_DOMAIN,
@@ -53,7 +51,8 @@ export function login() {
     const authorize = promisify(client.authorize.bind(client));
     authorize(options).then(onAuthenticated);
   } else {
-    const client = new Auth0.WebAuth({
+    const WebAuth = require('auth0-js/src/web-auth'); // eslint-disable-line global-require
+    const client = new WebAuth({
       domain: process.env.AUTH0_DOMAIN,
       clientID: process.env.AUTH0_CLIENT_ID,
       redirectUri: process.env.CALLBACK_URL,
@@ -97,7 +96,8 @@ export function refresh() {
     return Promise.reject(new Error('No refresh token stored, could not refresh authentication'));
   }
 
-  const client = new Auth0.Authentication({
+  const Authentication = require('auth0-js/src/authentication'); // eslint-disable-line global-require
+  const client = new Authentication({
     domain: process.env.AUTH0_DOMAIN,
     clientID: process.env.AUTH0_CLIENT_ID,
   });

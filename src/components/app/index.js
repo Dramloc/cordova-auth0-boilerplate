@@ -1,10 +1,9 @@
 import { Component, h } from 'preact';
-import { createHashHistory, createBrowserHistory } from 'history';
 import { Router } from 'preact-router';
 
 import Callback from '../callback';
+import createHistory from '../../lib/util/create-history';
 import Home from '../home';
-import isCordova from '../../lib/util/is-cordova';
 import Loading from '../loading';
 import Login from '../login';
 
@@ -13,11 +12,7 @@ import style from './style.css';
 export default class App extends Component {
   constructor() {
     super();
-    if (isCordova()) {
-      this.history = createHashHistory();
-    } else {
-      this.history = createBrowserHistory();
-    }
+    this.history = createHistory();
   }
 
   render() {

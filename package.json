@@ -12,7 +12,8 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack -p",
+    "build": "cross-env NODE_ENV=production webpack -p",
+    "build:cordova": "cross-env IS_CORDOVA=true yarn build",
     "lint": "eslint ."
   },
   "devDependencies": {
@@ -23,6 +24,7 @@
     "babel-eslint": "^8.2.3",
     "babel-loader": "^8.0.0-beta",
     "babel-plugin-transform-react-jsx": "^6.24.1",
+    "cross-env": "^5.1.4",
     "css-loader": "^0.28.11",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.1.0",
