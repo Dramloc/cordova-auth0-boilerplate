@@ -61,36 +61,24 @@ export function login() {
   }
 }
 
-export function logout() {
-  localStorage.removeItem(ACCESS_TOKEN);
-  localStorage.removeItem(ID_TOKEN);
-  localStorage.removeItem(EXPIRES_AT);
-  localStorage.removeItem(REFRESH_TOKEN);
-  route('/login');
+function getAccessToken() {
+  return localStorage.getItem(ACCESS_TOKEN);
 }
 
-export function isAuthenticated() {
-  const accessToken = localStorage.getItem(ACCESS_TOKEN);
-  if (!accessToken) {
-    return false;
-  }
-  const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-  if (refreshToken) {
-    return true;
-  }
+function getRefreshToken() {
+  return localStorage.getItem(REFRESH_TOKEN);
+}
+
+function isAccessTokenExpired() {
   const expiresAt = localStorage.getItem(EXPIRES_AT);
   if (!expiresAt) {
-    return false;
+    return true;
   }
-  return Date.now() < JSON.parse(expiresAt);
-}
-
-export function getAuthorizationHeader() {
-  return `Bearer ${localStorage.getItem('access_token')}`;
+  return Date.now() > JSON.parse(expiresAt);
 }
 
 export function refresh() {
-  const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+  const refreshToken = getRefreshToken();
 
   if (!refreshToken) {
     return Promise.reject(new Error('No refresh token stored, could not refresh authentication'));
@@ -107,4 +95,33 @@ export function refresh() {
     grantType: 'refresh_token',
     refreshToken,
   }).then(onAuthenticated);
+}
+
+export function logout() {
+  localStorage.removeItem(ACCESS_TOKEN);
+  localStorage.removeItem(ID_TOKEN);
+  localStorage.removeItem(EXPIRES_AT);
+  localStorage.removeItem(REFRESH_TOKEN);
+  route('/login');
+}
+
+export function isAuthenticated() {
+  // If no access token is stored, user is not authenticated
+  if (!getAccessToken()) {
+    return false;
+  }
+  // If a refresh token is available, authentication can be refreshed
+  if (getRefreshToken()) {
+    return true;
+  }
+  // If no refresh token is availble, check if access token expired
+  return !isAccessTokenExpired();
+}
+
+export async function getAuthorizationHeader() {
+  if (isAccessTokenExpired()) {
+    await refresh();
+  }
+
+  return `Bearer ${getAccessToken()}`;
 }

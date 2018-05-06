@@ -11,8 +11,11 @@ yarn
 # serve with hot reload at localhost:8080
 yarn start
 
-# build for production with minification
+# production build
 yarn build
+
+# production build for cordova
+yarn build:cordova
 ```
 
 ## License

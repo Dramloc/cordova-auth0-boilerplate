@@ -7,7 +7,7 @@ const webpack = require('webpack');
 module.exports = {
   devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'cheap-module-eval-source-map',
   mode: process.env.NODE_ENV ? process.env.NODE_ENV : 'development',
-  entry: './src/index.js',
+  entry: ['babel-polyfill', './src/index.js'],
   output: {
     path: path.resolve(__dirname, 'www'),
   },
