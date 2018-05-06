@@ -35,11 +35,6 @@ export function handleAuthentication() {
 }
 
 export function login() {
-  const options = {
-    responseType: 'token id_token',
-    scope: 'openid profile offline_access',
-    audience: process.env.AUTH0_AUDIENCE,
-  };
   if (process.env.IS_CORDOVA) {
     const Auth0Cordova = require('@auth0/cordova'); // eslint-disable-line global-require
     window.handleOpenURL = url => Auth0Cordova.onRedirectUri(url);
@@ -49,15 +44,21 @@ export function login() {
       packageIdentifier: process.env.PACKAGE_ID,
     });
     const authorize = promisify(client.authorize.bind(client));
-    authorize(options).then(onAuthenticated);
+    authorize({
+      scope: 'openid profile offline_access',
+      audience: process.env.AUTH0_AUDIENCE,
+    }).then(onAuthenticated);
   } else {
     const WebAuth = require('auth0-js/src/web-auth'); // eslint-disable-line global-require
     const client = new WebAuth({
       domain: process.env.AUTH0_DOMAIN,
       clientID: process.env.AUTH0_CLIENT_ID,
       redirectUri: process.env.CALLBACK_URL,
+      responseType: 'token id_token',
+      scope: 'openid profile',
+      audience: process.env.AUTH0_AUDIENCE,
     });
-    client.authorize(options);
+    client.authorize();
   }
 }
 
